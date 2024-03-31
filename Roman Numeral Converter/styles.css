@@ -9,6 +9,7 @@ body{
     font-family: "Roboto", sans-serif;
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 .container {
     display: flex;
@@ -25,7 +26,7 @@ body{
     text-transform:uppercase;
 }
 form{
-    width: 800px;
+    width: 80%;
     height: 300px;
     border: 8px solid #FFA400;
     display: flex;
@@ -53,7 +54,7 @@ label {
     font-weight: 700;
 }
 .output {
-    width: 500px;
+    width: 30%;
     height: 100px;
     background-color: #1B1B32;
     display: flex;
@@ -63,9 +64,10 @@ label {
     align-items: center;
     border: 8px solid #ffa400;
     font-size: 2rem;
+    text-align: center;
 }
 .red{
-    width: 500px;
+    width:60%;
     height: 100px;
     background-color:#FFADAD;
     display: flex;
@@ -75,4 +77,21 @@ label {
     align-items: center;
     border: 8px solid #850000;
     font-size: 2rem;
+    padding: 2rem;
+}
+
+@media screen and (max-width:768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .container {
+        gap: 1rem;
+    }
+    .container h1 {
+        font-size: 1rem;
+    }
+    .output, .red {
+        width: 80%;
+        font-size: 1.2rem;
+    }
 }
