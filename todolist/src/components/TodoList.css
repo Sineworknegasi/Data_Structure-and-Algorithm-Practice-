@@ -1,0 +1,55 @@
+.section_todolist {
+    background: linear-gradient(45deg, #0a23b2 0%, #d04b4b 100%);
+}
+.container {
+    width: 400px;
+}
+.inputs {
+    border: none;
+    background: rebeccapurple;
+    outline: none;
+}
+.inputs::placeholder {
+    color:gray;
+    font-family: "poppins", sans-serif;
+}
+.button1 {
+    background: orangered;;
+    border: none;
+    color: white;
+}
+.button1:active{
+    background:orange
+}
+
+ul {
+    list-style-type:circle;
+    margin: 0;
+    padding: 1rem;
+}
+ul li {
+    font-size: 1.2rem;
+    margin: 1rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checked {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.Icons {
+    font-size: 1.5rem;
+    font-weight:bold;
+    color: tomato;
+}
+
+span {
+    font-size: 1.5rem;
+    font-weight:bold;
+    color: tomato;
+    cursor: pointer;
+}
