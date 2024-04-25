@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../Store/slices/cart-slice";
 
 const ProductTile = ({ product }) => {
-  const despatch = useDispatch();
+  const dispatch = useDispatch();
   const { cart } = useSelector((state) => state);
 
   function handleAddToCart() {
-    despatch(addToCart(product));
+    dispatch(addToCart(product));
   }
   function handleRemoveFromCart() {
-    despatch(removeFromCart(product));
+    dispatch(removeFromCart(product));
   }
 
   return (
