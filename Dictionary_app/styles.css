@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --primary-color: #ACA1FF;
+    --secondary-color: #ffffff;
+    --font-color: #333;
+    --font-size: 1rem;
+    --font-family: 'Poppins', sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    color: var(--font-color);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: 1.5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(138deg, #0125ff, #0396ff, #8500aa);
+    background-size: 600% 600%;
+    animation: bg_anime 6s ease infinite;
+}
+.container {
+    background-color: var(--secondary-color);
+    width: max-content;
+    padding: 2rem;
+    border-radius: 5px;
+    max-width: 500px;
+}
+.form {
+    display: flex;
+    gap: 0.5rem;
+}
+.form input {
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+}
+.form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+.form button:hover {
+    background-color: #8C7AE6;
+}
+.form button:active {
+    background-color: #6C5AE6;
+}
+.word_and_sound {
+    padding-top: 3rem;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.word_and_sound i {
+    cursor: pointer;
+    width: auto;
+}
+.Word {
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+}
+.pronuciation {
+    padding-top: 0.1rem;
+    font-size: 8px;
+    font-weight: 400;
+    color: rgb(182, 179, 179);
+}
+.Meaning {
+    padding: 0.4rem 0;
+    font-size: 10px;
+    font-weight: 400;
+    color: rgb(49, 44, 44);
+}
+.Example {
+    font-size: 10px;
+    margin-top: 0.8rem;
+    font-style: italic;
+    border-left: 2px solid var(--primary-color);
+    padding-left: 0.5rem;
+    font-weight: 400;
+    color: rgb(103, 101, 101);
+}
+.dictionary_form {
+    display: none;
+    transition: all 1s ease-in-out;
+}
+
+@keyframes bg_anime {
+    0%{background-position:0% 45%}
+    50%{background-position:100% 56%}
+    100%{background-position:0% 45%}
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin: 1rem;
+    }
+}
