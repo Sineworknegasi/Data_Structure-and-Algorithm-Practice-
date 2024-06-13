@@ -2,30 +2,16 @@ const startBtn = document.getElementById("start-btn");
 const canvas = document.getElementById("canvas");
 const startScreen = document.querySelector(".start-screen");
 const checkpointScreen = document.querySelector(".checkpoint-screen");
-
-const checkpointMessage = document.querySelector(".checkpoint-screen > p"); // which is used to target the paragraph inside checkpoint screen class
-// then before we begin build out the functionality first we have to create 2d grpahics using canva
+const checkpointMessage = document.querySelector(".checkpoint-screen > p");
 const ctx = canvas.getContext("2d");
 canvas.width = innerWidth;
-// at this time innerWidth is the width of the browser window;
 canvas.height = innerHeight;
-// at this time innerHeight is the Height of the browser window;
-//When the player jumps, you will need to apply gravity to bring them back down.
 const gravity = 0.5;
-/**
- * As you are designing the game, you will need to make sure that the size of the elements in the game are responsive and adapt to different screen sizes.
- * Start by creating an arrow function called proportionalSize that takes in a size parameter.
- */
-/**
- * The width and the height of the main player, platforms and checkpoints will be proportional sized relative to the innerHeight of the browser screen. The goal is to make the game responsive and visually consistent across different screen sizes.
-
-Inside your proportionalSize function, you will need to return a ternary that checks if innerHeight is less than 500. If so, return Math.ceil((size / 500) * innerHeight), otherwise return size.
- * @param {*} size 
- */
+let isCheckpointCollisionDetectionActive = true;
 
 const proportionalSize = (size) => {
   return innerHeight < 500 ? Math.ceil((size / 500) * innerHeight) : size;
-};
+}
 
 class Player {
   constructor() {
@@ -40,12 +26,11 @@ class Player {
     this.width = proportionalSize(40);
     this.height = proportionalSize(40);
   }
-
   draw() {
     ctx.fillStyle = "#99c9ff";
-    //you need to create the player's shape by calling the fillRect() method on the ctx object which you instantiated earlier.
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
+  
   update() {
     this.draw();
     this.position.x += this.velocity.x;
@@ -71,32 +56,109 @@ class Player {
   }
 }
 
+class Platform {
+  constructor(x, y) {
+    this.position = {
+      x,
+      y,
+    };
+    this.width = 200;
+    this.height = proportionalSize(40);
+  }
+  draw() {
+    ctx.fillStyle = "#acd157";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+}
+
 const player = new Player();
 
+const platformPositions = [
+  { x: 500, y: proportionalSize(450) },
+  { x: 700, y: proportionalSize(400) },
+  { x: 850, y: proportionalSize(350) },
+  { x: 900, y: proportionalSize(350) },
+  { x: 1050, y: proportionalSize(150) },
+  { x: 2500, y: proportionalSize(450) },
+  { x: 2900, y: proportionalSize(400) },
+  { x: 3150, y: proportionalSize(350) },
+  { x: 3900, y: proportionalSize(450) },
+  { x: 4200, y: proportionalSize(400) },
+  { x: 4400, y: proportionalSize(200) },
+  { x: 4700, y: proportionalSize(150) },
+];
+
+
+const platforms = platformPositions.map(
+
+);
+
+
 const animate = () => {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    player.update();
-    if(keys.rightKey.pressed && player.position.x < proportionalSize(400)) {
-        player.velocity.x = 5;
-    }
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  player.update();
+
+  if (keys.rightKey.pressed && player.position.x < proportionalSize(400)) {
+    player.velocity.x = 5;
+  } else if (keys.leftKey.pressed && player.position.x > proportionalSize(100)) {
+    player.velocity.x = -5;
+  } else {
+    player.velocity.x = 0;
+  }
+}
+
+
+const keys = {
+  rightKey: {
+    pressed: false
+  },
+  leftKey: {
+    pressed: false
+  }
+};
+
+const movePlayer = (key, xVelocity, isPressed) => {
+  if (!isCheckpointCollisionDetectionActive) {
+    player.velocity.x = 0;
+    player.velocity.y = 0;
+    return;
   }
 
-  const keys = {
-    rightKey: {
-      pressed: false
-    },
-    leftKey: {
-      pressed: false
-    }
-  };
+  switch (key) {
+    case "ArrowLeft":
+      keys.leftKey.pressed = isPressed;
+      if (xVelocity === 0) {
+        player.velocity.x = xVelocity;
+      }
+      player.velocity.x -= xVelocity;
+      break;
+    case "ArrowUp":
+    case " ":
+    case "Spacebar":
+      player.velocity.y -= 8;
+      break;
+    case "ArrowRight":
+      keys.rightKey.pressed = isPressed;
+      if (xVelocity === 0) {
+        player.velocity.x = xVelocity;
+      }
+      player.velocity.x += xVelocity;
+  }
+}
+
 const startGame = () => {
-    canvas.style.display = "block";
-    startScreen.style.display = "none";
-    player.draw();
-};
+  canvas.style.display = "block";
+  startScreen.style.display = "none";
+  animate();
+}
 
 startBtn.addEventListener("click", startGame);
 
+window.addEventListener("keydown", ({ key }) => {
+  movePlayer(key, 8, true);
+});
 
-
+window.addEventListener("keyup", ({ key }) => {
+  movePlayer(key, 0, false);
+});
